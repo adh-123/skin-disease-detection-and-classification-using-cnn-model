@@ -1,0 +1,10 @@
+{
+    "athlete_foot": 0,
+    "cellulitis": 1,
+    "chickenpox": 2,
+    "cutaneous_larva_migrans": 3,
+    "impetigo": 4,
+    "nail_fungus": 5,
+    "ringworm": 6,
+    "shingles": 7
+}

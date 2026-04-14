@@ -1,0 +1,8 @@
+{% extends 'classifier/admin_dashboard.html' %}
+{% block content %}
+<div class="card"><div class="card-header">Users</div><div class="card-body">
+  <table class="table"><tr><th>Username</th><th>Email</th><th>Joined</th><th>Predictions</th></tr>
+    {% for u in users %}<tr><td>{{ u.username }}</td><td>{{ u.email }}</td><td>{{ u.date_joined }}</td><td>{{ u.predictions }}</td></tr>{% endfor %}
+  </table>
+</div></div>
+{% endblock %}

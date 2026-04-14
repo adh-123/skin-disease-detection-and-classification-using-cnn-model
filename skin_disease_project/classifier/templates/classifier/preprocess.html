@@ -1,0 +1,76 @@
+{% extends 'classifier/admin_dashboard.html' %}
+{% block content %}
+
+<style>
+    .process-card {
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .process-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #0ea5e9;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .summary-box {
+        background: #f1f9ff;
+        border-left: 5px solid #0ea5e9;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 15px;
+        font-size: 16px;
+    }
+
+    .summary-box span {
+        font-weight: bold;
+        color: #3b82f6;
+    }
+
+    .info-badge {
+        background: #0ea5e9;
+        color: white;
+        padding: 7px 14px;
+        border-radius: 8px;
+        margin-right: 10px;
+        font-weight: 600;
+    }
+
+    .img-preview {
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        margin-top: 20px;
+    }
+</style>
+
+<div class="process-card">
+
+    <p class="process-title">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Preprocess Summary
+    </p>
+
+    {% if error %}
+        <div class="alert alert-danger mt-2">{{ error }}</div>
+    {% endif %}
+
+    <!-- SUMMARY BOXES -->
+    <div class="summary-box">
+        <span>Total Images:</span> {{ total_images }}
+        <br>
+        <span>Corrupted Images:</span> {{ corrupted }}
+    </div>
+
+    <!-- Graph Section -->
+    {% if graph_url %}
+        <p class="mt-3 fw-bold text-secondary">Image Count Distribution</p>
+        <img src="{{ graph_url }}" class="img-fluid img-preview">
+    {% endif %}
+
+</div>
+
+{% endblock %}

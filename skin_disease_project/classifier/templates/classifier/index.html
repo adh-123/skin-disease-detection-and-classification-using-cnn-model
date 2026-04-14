@@ -1,0 +1,42 @@
+{% extends 'classifier/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header text-center">
+                <h4>Upload Skin Image</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.image.label_tag }}
+                        {{ form.image }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        Predict Disease
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {% if prediction_label %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <strong>Prediction Result</strong>
+                </div>
+                <div class="card-body">
+                    {% if image_url %}
+                        <div class="text-center mb-3">
+                            <img src="{{ image_url }}" class="img-fluid rounded" alt="Uploaded image">
+                        </div>
+                    {% endif %}
+                    <p><strong>Disease:</strong> {{ prediction_label }}</p>
+                    <p><strong>Confidence:</strong> {{ confidence|floatformat:2 }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Predict | Skin Disease Detection And Classification Using Cnn</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background: #eef4ff;
+        font-family: "Segoe UI", sans-serif;
+        padding-top: 90px;
+    }
+
+    /* NAVBAR */
+    .user-nav {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        border-radius: 15px;
+        padding: 12px 25px;
+        position: fixed;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 92%;
+        max-width: 1200px;
+        z-index: 1000;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .user-nav a {
+        color: #0f172a !important;
+        font-weight: 600;
+        margin-right: 20px;
+        transition: .3s;
+    }
+
+    .user-nav a:hover {
+        opacity: 0.7;
+    }
+
+    /* PREDICT CARD */
+    .predict-card {
+        background: rgba(255, 255, 255, 0.92);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .predict-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #3b82f6;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    /* Upload Box */
+    .upload-box {
+        border: 2px dashed #3b82f6;
+        padding: 25px;
+        border-radius: 12px;
+        background: #eef6ff;
+        text-align: center;
+        cursor: pointer;
+        transition: .25s;
+    }
+    .upload-box:hover {
+        background: #e0f0ff;
+        border-color: #0ea5e9;
+    }
+
+    .upload-box i {
+        font-size: 40px;
+        color: #0ea5e9;
+        margin-bottom: 10px;
+    }
+
+    .img-preview {
+        border-radius: 12px;
+        max-height: 300px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .result-box {
+        background: #ecfdf5;
+        padding: 18px;
+        border-left: 5px solid #10b981;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+
+    .result-box h4 {
+        color: #065f46;
+        margin-bottom: 5px;
+    }
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar user-nav navbar-expand-lg">
+    <div class="container-fluid">
+
+        <a class="navbar-brand fw-bold">
+            <i class="fa-solid fa-user-circle"></i> User Dashboard
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a href="/user_dashboard" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="/predict" class="nav-link text-primary fw-bold">Predict</a></li>
+                <li class="nav-item"><a href="/user_logout" class="nav-link text-danger">Logout</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+    <div class="predict-card">
+
+        <!-- Page Title -->
+        <p class="predict-title">
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+            Predict Skin Disease
+        </p>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <!-- Upload Section -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label class="form-label fw-bold">Upload Skin Image:</label>
+
+            <div class="upload-box mb-3">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <p class="mb-1">Click or choose an image to upload</p>
+                <input type="file" name="image" class="form-control mt-2" required>
+            </div>
+
+            <button class="btn btn-primary w-100">
+                <i class="fa-solid fa-microscope"></i> Predict
+            </button>
+        </form>
+
+        <!-- Image Preview -->
+        {% if image_url %}
+            <hr>
+            <h5 class="text-secondary fw-bold">Uploaded Image</h5>
+            <img src="{{ image_url }}" class="img-fluid img-preview mt-2">
+        {% endif %}
+
+        <!-- Result -->
+        {% if prediction_label %}
+            <div class="result-box">
+                <h4><i class="fa-solid fa-circle-check"></i> {{ prediction_label }}</h4>
+                <p><strong>Confidence:</strong> {{ confidence|floatformat:2 }}%</p>
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
