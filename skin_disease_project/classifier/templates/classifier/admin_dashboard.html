@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background: #f2f7fb;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    /* TOP NAVBAR */
+    .admin-navbar {
+        background: linear-gradient(90deg, #0ea5e9, #3b82f6);
+        padding: 12px 20px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .admin-navbar a {
+        color: white !important;
+        font-weight: 500;
+        margin-right: 18px;
+        transition: 0.2s ease;
+    }
+
+    .admin-navbar a:hover {
+        opacity: 0.8;
+    }
+
+    .dropdown-menu {
+        border-radius: 10px;
+        background-color: black;
+    }
+
+    .content-area {
+        background: white;
+        margin: 25px auto;
+        padding: 25px;
+        border-radius: 12px;
+        min-height: 450px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+</style>
+
+</head>
+<body>
+
+<!-- ⭐ TOP NAVIGATION BAR -->
+<nav class="navbar navbar-expand-lg admin-navbar navbar-dark">
+    <div class="container-fluid">
+
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold" href="#">
+            <i class="fa-solid fa-user-shield"></i> Admin Panel
+        </a>
+
+        <!-- Toggle Button for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu Items -->
+        <div class="collapse navbar-collapse" id="adminMenu">
+
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item">
+                    <a href="/upload_dataset" class="nav-link">
+                        <i class="fa-solid fa-upload"></i> Upload Dataset
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/preprocess" class="nav-link">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Preprocess
+                    </a>
+                </li>
+
+                <!-- TRAIN MODELS DROPDOWN -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-robot"></i> Train Models
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/train_mobilenet">MobileNetV2</a></li>
+                        <li><a class="dropdown-item" href="/train_inception">InceptionV3</a></li>
+                        <li><a class="dropdown-item" href="/train_vgg">VGG16</a></li>
+                        <li><a class="dropdown-item" href="/train_resnet">ResNet50</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/comparison" class="nav-link">
+                        <i class="fa-solid fa-chart-line"></i> Comparison
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/users_details" class="nav-link">
+                        <i class="fa-solid fa-users"></i> Users Details
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Logout Button Right -->
+            <a href="/admin_logout" class="btn btn-light btn-sm">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+
+        </div>
+    </div>
+</nav>
+
+<!-- ⭐ MAIN CONTENT -->
+<div class="container">
+    <div class="content-area">
+        {% block content %}
+        <h2>Welcome Admin</h2>
+        {% endblock %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+{% extends 'classifier/admin_dashboard.html' %}
+{% block content %}
+
+<style>
+    .train-card {
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .train-title {
+        font-size: 22px;
+        font-weight: bold;
+        color: #0ea5e9;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .metric-box {
+        display: inline-block;
+        background: #0ea5e9;
+        color: white;
+        padding: 8px 14px;
+        border-radius: 10px;
+        margin-right: 10px;
+        font-weight: 600;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .metric-red {
+        background: #ef4444 !important; /* removed images */
+    }
+
+    .metric-time {
+        background: #10b981 !important; /* duration */
+    }
+
+    .graph-img {
+        border-radius: 12px;
+        box-shadow: 0px 3px 12px rgba(0,0,0,0.2);
+        margin-top: 15px;
+    }
+
+    .back-btn {
+        background: #3b82f6;
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        width: 100%;
+        color: white;
+        transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+    }
+</style>
+
+<div class="train-card">
+
+    <!-- TITLE -->
+    <p class="train-title">
+        <i class="fa-solid fa-brain"></i> {{ model_name }} - Training Results
+    </p>
+
+    {% if error %}
+        <div class="alert alert-danger mt-2">{{ error }}</div>
+    {% endif %}
+
+    <!-- METRICS -->
+    <div class="mt-3">
+        <span class="metric-box">
+            <i class="fa-solid fa-check-circle"></i> Train Acc: {{ train_acc }}
+        </span>
+
+        <span class="metric-box">
+            <i class="fa-solid fa-chart-line"></i> Val Acc: {{ val_acc }}
+        </span>
+
+        <span class="metric-box metric-time">
+            <i class="fa-solid fa-stopwatch"></i> Time: {{ train_time }}s
+        </span>
+
+        <span class="metric-box metric-red">
+            <i class="fa-solid fa-trash"></i> Removed: {{ removed }}
+        </span>
+    </div>
+
+    <!-- GRAPHS -->
+    {% if accuracy_graph %}
+        <h5 class="mt-4 text-secondary fw-bold">Accuracy Graph</h5>
+        <img src="{{ accuracy_graph }}" class="img-fluid graph-img">
+    {% endif %}
+
+    {% if loss_graph %}
+        <h5 class="mt-4 text-secondary fw-bold">Loss Graph</h5>
+        <img src="{{ loss_graph }}" class="img-fluid graph-img">
+    {% endif %}
+
+    <!-- BACK BUTTON -->
+    <a href="/admin_dashboard" class="back-btn mt-4">
+        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}
